@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/rareshop-api.iml" filepath="$PROJECT_DIR$/rareshop-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rareshop-price-engine/rareshop-price-engine.iml" filepath="$PROJECT_DIR$/rareshop-price-engine/rareshop-price-engine.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rareshop-common/rareshop-common.iml" filepath="$PROJECT_DIR$/rareshop-common/rareshop-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rareshop-listing-rest/rareshop-listing-rest.iml" filepath="$PROJECT_DIR$/rareshop-listing-rest/rareshop-listing-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rareshop-parent.iml" filepath="$PROJECT_DIR$/rareshop-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rareshop-pricing-rest/rareshop-pricing-rest.iml" filepath="$PROJECT_DIR$/rareshop-pricing-rest/rareshop-pricing-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rareshop-searching-rest/rareshop-searching-rest.iml" filepath="$PROJECT_DIR$/rareshop-searching-rest/rareshop-searching-rest.iml" />
     </modules>
   </component>
 </project>
