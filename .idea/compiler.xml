@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="rareshop-listing-rest" />
         <module name="rareshop-pricing-rest" />
+        <module name="rareshop-price-engine" />
         <module name="rareshop-common" />
         <module name="rareshop-searching-rest" />
       </profile>

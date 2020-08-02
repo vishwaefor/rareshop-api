@@ -27,6 +27,23 @@ public class BasicProductInfo implements ProductInfo {
     public BasicProductInfo() {
     }
 
+    public BasicProductInfo(BasicProductInfoData productInfo) {
+        this();
+        this.name = productInfo.getName();
+        this.description = productInfo.getDescription();
+        this.imageURI = productInfo.getImageURI();
+    }
+
+    public BasicProductInfo(long productInfoId) {
+        this();
+        this.id = productInfoId;
+    }
+
+    public BasicProductInfo(long productInfoId, BasicProductInfoData productInfo) {
+        this(productInfo);
+        this.id = productInfoId;
+    }
+
     public long getId() {
         return this.id;
     }

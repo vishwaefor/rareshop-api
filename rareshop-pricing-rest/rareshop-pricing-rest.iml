@@ -73,5 +73,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.2.8.RELEASE" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.7.0" level="project" />
     <orderEntry type="module" module-name="rareshop-common" />
+    <orderEntry type="module" module-name="rareshop-price-engine" />
   </component>
 </module>

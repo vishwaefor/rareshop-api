@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rareshop.api.rest.listing.constant.APIMapping;
 import com.rareshop.api.rest.listing.constant.InfoMessage;
 import com.rareshop.api.rest.listing.model.BasicProductInfo;
+import com.rareshop.api.rest.listing.model.BasicProductInfoData;
 import com.rareshop.api.rest.listing.service.ProductInfoService;
 import org.junit.jupiter.api.*;
 import org.mockito.ArgumentCaptor;
@@ -20,6 +21,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import rareshop.api.common.core.constant.Params;
 import rareshop.api.common.core.exception.BadRequestException;
 import rareshop.api.common.core.exception.NotFoundException;
 import rareshop.api.common.core.model.Acknowledgement;
@@ -59,6 +61,9 @@ public class ProductInfoControllerTest {
     @Captor
     private ArgumentCaptor<BasicProductInfo> productInfoCaptor;
 
+    @Captor
+    private ArgumentCaptor<BasicProductInfoData> productInfoDataCaptor;
+
     @AfterEach
     private void afterEach() {
         reset(productInfoService);
@@ -75,18 +80,18 @@ public class ProductInfoControllerTest {
             Acknowledgement acknowledgement =
                     new Acknowledgement(InfoMessage.PRODUCT_INFO_CREATED, payload);
 
-            Mockito.when(productInfoService.addProductInfo(any(BasicProductInfo.class)))
+            Mockito.when(productInfoService.addProductInfo(any(BasicProductInfoData.class)))
                     .thenReturn(acknowledgement);
 
-            BasicProductInfo basicProductInfo = new BasicProductInfo();
+            BasicProductInfoData basicProductInfoData = new BasicProductInfoData();
 
             ResultActions resultActions = mockMvc.perform(post(APIMapping.PRODUCT_INFO_MAPPING)
-                    .content(objectMapper.writeValueAsString(basicProductInfo))
+                    .content(objectMapper.writeValueAsString(basicProductInfoData))
                     .contentType(MediaType.APPLICATION_JSON));
 
-            Mockito.verify(productInfoService).addProductInfo(productInfoCaptor.capture());
+            Mockito.verify(productInfoService).addProductInfo(productInfoDataCaptor.capture());
 
-            Assertions.assertEquals(basicProductInfo, productInfoCaptor.getValue());
+            Assertions.assertEquals(basicProductInfoData, productInfoDataCaptor.getValue());
 
             resultActions.andExpect(status().isCreated())
                     .andExpect(content().string(
@@ -99,18 +104,18 @@ public class ProductInfoControllerTest {
         public void testAddProductInfoWithIncorrectBody() throws Exception {
 
             String errorMessage = "invalid property";
-            Mockito.when(productInfoService.addProductInfo(any(BasicProductInfo.class)))
+            Mockito.when(productInfoService.addProductInfo(any(BasicProductInfoData.class)))
                     .thenThrow(new BadRequestException(errorMessage));
 
-            BasicProductInfo basicProductInfoWithErrors = new BasicProductInfo();
+            BasicProductInfoData basicProductInfoDataWithErrors = new BasicProductInfoData();
 
             ResultActions resultActions = mockMvc.perform(post(APIMapping.PRODUCT_INFO_MAPPING)
-                    .content(objectMapper.writeValueAsString(basicProductInfoWithErrors))
+                    .content(objectMapper.writeValueAsString(basicProductInfoDataWithErrors))
                     .contentType(MediaType.APPLICATION_JSON));
 
-            Mockito.verify(productInfoService).addProductInfo(productInfoCaptor.capture());
+            Mockito.verify(productInfoService).addProductInfo(productInfoDataCaptor.capture());
 
-            Assertions.assertEquals(basicProductInfoWithErrors, productInfoCaptor.getValue());
+            Assertions.assertEquals(basicProductInfoDataWithErrors, productInfoDataCaptor.getValue());
 
             resultActions.andExpect(status().isBadRequest())
                     .andExpect(content().string(
@@ -139,7 +144,8 @@ public class ProductInfoControllerTest {
         }
 
         @Test
-        @DisplayName("When [get] to /product-info/{product-info-id} with existing id, matched Product Info object should be retrieved")
+        @DisplayName("When [get] to /product-info/{product-info-id} with existing id, " +
+                "matched Product Info object should be retrieved")
         public void testGetSingleProductInfoWithExistingId() throws Exception {
 
             long existingId = 1L;
@@ -165,7 +171,8 @@ public class ProductInfoControllerTest {
         }
 
         @Test
-        @DisplayName("When [get] to /product-info/{product-info-id} with non-existing id, should get not found request error:404")
+        @DisplayName("When [get] to /product-info/{product-info-id} with non-existing id, " +
+                "should get not found error:404")
         public void testGetSingleProductInfoWithNonExistingId() throws Exception {
 
             String errorMessage = "item not found";
@@ -193,7 +200,8 @@ public class ProductInfoControllerTest {
     class UpdateProductInfo {
 
         @Test
-        @DisplayName("When [put] to /product-info/{product-info-id} with non existing id, should get not found request error:404")
+        @DisplayName("When [put] to /product-info/{product-info-id} with non existing id, " +
+                "should get not found error:404")
         public void testUpdateProductInfoWithNonExistingId() throws Exception {
 
 
@@ -202,17 +210,16 @@ public class ProductInfoControllerTest {
                     .thenThrow(new NotFoundException(errorMessage));
 
             long nonExistingId = 0L;
-            BasicProductInfo updatedBasicProductInfo = new BasicProductInfo();
-            updatedBasicProductInfo.setId(nonExistingId);
-            String url = APIMapping.PRODUCT_INFO_MAPPING + APIMapping.SINGLE_PRODUCT_INFO_MAPPING;
+            BasicProductInfoData basicProductInfoData = new BasicProductInfoData();
 
+            String url = APIMapping.PRODUCT_INFO_MAPPING + APIMapping.SINGLE_PRODUCT_INFO_MAPPING;
             ResultActions resultActions = mockMvc.perform(put(url, nonExistingId)
-                    .content(objectMapper.writeValueAsString(updatedBasicProductInfo))
+                    .content(objectMapper.writeValueAsString(basicProductInfoData))
                     .contentType(MediaType.APPLICATION_JSON));
 
             Mockito.verify(productInfoService).updateProductInfo(productInfoCaptor.capture());
 
-            Assertions.assertEquals(updatedBasicProductInfo, productInfoCaptor.getValue());
+            Assertions.assertEquals(new BasicProductInfo(nonExistingId, basicProductInfoData), productInfoCaptor.getValue());
 
             resultActions.andExpect(status().isNotFound())
                     .andExpect(content().string(
@@ -222,23 +229,27 @@ public class ProductInfoControllerTest {
         }
 
         @Test
-        @DisplayName("When [put] to /product-info/{product-info-id} with incorrect body, should get bad request error:400")
+        @DisplayName("When [put] to /product-info/{product-info-id} with incorrect body, " +
+                "should get bad request error:400")
         public void testUpdateProductInfoWithIncorrectBody() throws Exception {
 
+            long id = 1L;
             String errorMessage = "invalid property";
             Mockito.when(productInfoService.updateProductInfo(any(BasicProductInfo.class)))
                     .thenThrow(new BadRequestException(errorMessage));
 
-            BasicProductInfo updatedBasicProductInfoWithErrors = new BasicProductInfo();
+            BasicProductInfoData updatedBasicProductInfoDataWithErrors = new BasicProductInfoData();
 
             String url = APIMapping.PRODUCT_INFO_MAPPING + APIMapping.SINGLE_PRODUCT_INFO_MAPPING;
-            ResultActions resultActions = mockMvc.perform(put(url, 1L)
-                    .content(objectMapper.writeValueAsString(updatedBasicProductInfoWithErrors))
+            ResultActions resultActions = mockMvc.perform(put(url, id)
+                    .content(objectMapper.writeValueAsString(updatedBasicProductInfoDataWithErrors))
                     .contentType(MediaType.APPLICATION_JSON));
 
             Mockito.verify(productInfoService).updateProductInfo(productInfoCaptor.capture());
 
-            Assertions.assertEquals(updatedBasicProductInfoWithErrors, productInfoCaptor.getValue());
+            Assertions.assertEquals(
+                    new BasicProductInfo(id, updatedBasicProductInfoDataWithErrors),
+                    productInfoCaptor.getValue());
 
             resultActions.andExpect(status().isBadRequest())
                     .andExpect(content().string(
@@ -246,18 +257,19 @@ public class ProductInfoControllerTest {
         }
 
         @Test
-        @DisplayName("When [put] to /product-info/{product-info-id} with correct body, Product Info should be updated ")
+        @DisplayName("When [put] to /product-info/{product-info-id} with correct body, " +
+                "Product Info should be updated ")
         public void testUpdateProductInfoWithCorrectBody() throws Exception {
             long id = 1L;
             Map<String, Object> payload = new HashMap<>();
-            payload.put("id", id);
+            payload.put(Params.ID, id);
             Acknowledgement acknowledgement =
                     new Acknowledgement(InfoMessage.PRODUCT_INFO_UPDATED, payload);
 
             Mockito.when(productInfoService.updateProductInfo(any(BasicProductInfo.class)))
                     .thenReturn(acknowledgement);
 
-            BasicProductInfo updatedBasicProductInfo = new BasicProductInfo();
+            BasicProductInfoData updatedBasicProductInfo = new BasicProductInfoData();
 
             String url = APIMapping.PRODUCT_INFO_MAPPING + APIMapping.SINGLE_PRODUCT_INFO_MAPPING;
             ResultActions resultActions = mockMvc.perform(put(url, id)
@@ -266,7 +278,9 @@ public class ProductInfoControllerTest {
 
             Mockito.verify(productInfoService).updateProductInfo(productInfoCaptor.capture());
 
-            Assertions.assertEquals(updatedBasicProductInfo, productInfoCaptor.getValue());
+            Assertions.assertEquals(
+                    new BasicProductInfo(id, updatedBasicProductInfo),
+                    productInfoCaptor.getValue());
 
             resultActions.andExpect(status().isOk())
                     .andExpect(content().string(
@@ -279,7 +293,8 @@ public class ProductInfoControllerTest {
     class DeleteProductInfo {
 
         @Test
-        @DisplayName("When [delete] to /product-info/{product-info-id} with non existing id, should get not found request error:404")
+        @DisplayName("When [delete] to /product-info/{product-info-id} with non existing id, s" +
+                "hould get not found error:404")
         public void testDeleteProductInfoWithNonExistingId() throws Exception {
             String errorMessage = "item not found";
             Mockito.when(productInfoService.deleteProductInfo(anyLong()))
@@ -302,11 +317,12 @@ public class ProductInfoControllerTest {
         }
 
         @Test
-        @DisplayName("When [delete] to /product-info/{product-info-id} with existing id, Product Info should be deleted")
+        @DisplayName("When [delete] to /product-info/{product-info-id} with existing id, " +
+                "Product Info should be deleted")
         public void testDeleteProductInfoWithExistingId() throws Exception {
             long id = 1L;
             Map<String, Object> payload = new HashMap<>();
-            payload.put("id", id);
+            payload.put(Params.ID, id);
             Acknowledgement acknowledgement =
                     new Acknowledgement(InfoMessage.PRODUCT_INFO_DELETED, payload);
 
@@ -333,7 +349,8 @@ public class ProductInfoControllerTest {
     class PublishProductInfo {
 
         @Test
-        @DisplayName("When [patch] to /product-info/{product-info-id}?published=true with non existing id, should get not found request error:404")
+        @DisplayName("When [patch] to /product-info/{product-info-id}?published=true with non existing id, " +
+                "should get not found error:404")
         public void testPublishProductInfoWithNonExistingId() throws Exception {
 
             boolean published = true;
@@ -345,7 +362,7 @@ public class ProductInfoControllerTest {
             String url = APIMapping.PRODUCT_INFO_MAPPING + APIMapping.SINGLE_PRODUCT_INFO_MAPPING;
 
             ResultActions resultActions = mockMvc.perform(patch(url, nonExistingId)
-                    .param(APIMapping.PUBLISHED_PARAM, published ? "true" : "false"));
+                    .param(APIMapping.PRODUCT_INFO_PUBLISHED_PARAM, published ? "true" : "false"));
 
             Mockito.verify(productInfoService).publishProductInfo(idCaptor.capture(), publishedCaptor.capture());
 
@@ -359,12 +376,16 @@ public class ProductInfoControllerTest {
         }
 
         @Test
-        @DisplayName("When [patch] to /product-info/{product-info-id}?published=true , Product Info should be published")
+        @DisplayName("When [patch] to /product-info/{product-info-id}?published=true, " +
+                "Product Info should be published")
         public void testPublishProductWithExistingId() throws Exception {
             long id = 1L;
             boolean published = true;
+            Map<String, Object> payload = new HashMap<>();
+            payload.put(Params.ID, id);
             Acknowledgement acknowledgement =
-                    new Acknowledgement("published", published);
+                    new Acknowledgement(
+                            published ? InfoMessage.PRODUCT_INFO_PUBLISHED : InfoMessage.PRODUCT_INFO_UNPUBLISHED, payload);
 
             Mockito.when(productInfoService.publishProductInfo(anyLong(), anyBoolean()))
                     .thenReturn(acknowledgement);
@@ -372,7 +393,7 @@ public class ProductInfoControllerTest {
 
             String url = APIMapping.PRODUCT_INFO_MAPPING + APIMapping.SINGLE_PRODUCT_INFO_MAPPING;
             ResultActions resultActions = mockMvc.perform(patch(url, id)
-                    .param(APIMapping.PUBLISHED_PARAM, published ? "true" : "false"));
+                    .param(APIMapping.PRODUCT_INFO_PUBLISHED_PARAM, published ? "true" : "false"));
 
             Mockito.verify(productInfoService).publishProductInfo(idCaptor.capture(), publishedCaptor.capture());
 

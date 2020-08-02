@@ -5,6 +5,7 @@
 package rareshop.api.common.core.pricing;
 
 import rareshop.api.common.core.exception.InvalidArgumentException;
+import rareshop.api.common.core.unit.HasUnit;
 
 /**
  * Pricing rule is used to price an item.
@@ -20,24 +21,21 @@ import rareshop.api.common.core.exception.InvalidArgumentException;
  * But with an additional factor = 1.5
  * which would make final unit price = 1.5 * $100/20
  */
-public interface PricingRule {
+public interface PricingRule extends HasUnit {
 
     long getId();
 
     default String getDescription() {
-        return getUnit() + " of " + getQuantityInPrimaryUnit()
-                + " - primary units @ price : " + getUnitPrice()
-                + " / primary units price : " + getPrimaryUnitPrice();
+        return getUnit().getName() + "[ " + getUnitQuantityInPrimaryUnit()
+                + " primary units ] @ price of " + getUnitPrice()
+                + (isAdditionalPricingFactorUsed() ? " * " + getAdditionalPricingFactor() : "")
+                + " [ primary unit price : " + getPrimaryUnitPrice() + " ]";
 
     }
 
     int getPriorityScore();
 
-    String getUnit();
-
     double getUnitPrice();
-
-    int getQuantityInPrimaryUnit();
 
     boolean isAdditionalPricingFactorUsed();
 
@@ -45,11 +43,11 @@ public interface PricingRule {
 
     default double getPrimaryUnitPrice() {
 
-        if (getUnitPrice() < 0 || getQuantityInPrimaryUnit() < 0) {
+        if (getUnitPrice() < 0 || getUnitQuantityInPrimaryUnit() < 0) {
             throw new InvalidArgumentException();
         }
 
-        double unitPrice = getUnitPrice() / Math.max(1, getQuantityInPrimaryUnit());
+        double unitPrice = getUnitPrice() / Math.max(1, getUnitQuantityInPrimaryUnit());
 
         if (isAdditionalPricingFactorUsed()) {
 
@@ -62,5 +60,6 @@ public interface PricingRule {
 
         return Math.max(0D, unitPrice);
     }
+
 
 }

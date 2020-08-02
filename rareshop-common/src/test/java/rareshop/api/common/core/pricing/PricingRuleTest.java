@@ -26,7 +26,7 @@ public class PricingRuleTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        Mockito.when(pricingRule.getUnit()).thenReturn(UNIT);
+        Mockito.when(pricingRule.getUnitName()).thenReturn(UNIT);
     }
 
     @Nested
@@ -42,19 +42,19 @@ public class PricingRuleTest {
 
                     () -> {
                         Mockito.when(pricingRule.getUnitPrice()).thenReturn(-UNIT_PRICE);
-                        Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
+                        Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
 
                         Assertions.assertThrows(InvalidArgumentException.class, () -> pricingRule.getPrimaryUnitPrice());
                     },
                     () -> {
                         Mockito.when(pricingRule.getUnitPrice()).thenReturn(UNIT_PRICE);
-                        Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(-QUANTITY_IN_PRIMARY_UNITS);
+                        Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(-QUANTITY_IN_PRIMARY_UNITS);
 
                         Assertions.assertThrows(InvalidArgumentException.class, () -> pricingRule.getPrimaryUnitPrice());
                     },
                     () -> {
                         Mockito.when(pricingRule.getUnitPrice()).thenReturn(-UNIT_PRICE);
-                        Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(-QUANTITY_IN_PRIMARY_UNITS);
+                        Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(-QUANTITY_IN_PRIMARY_UNITS);
 
                         Assertions.assertThrows(InvalidArgumentException.class, () -> pricingRule.getPrimaryUnitPrice());
                     }
@@ -66,7 +66,7 @@ public class PricingRuleTest {
         void when_quantity_in_primary_unit_is_zero_primary_unit_price_should_be_same_as_unit_price() {
 
             Mockito.when(pricingRule.getUnitPrice()).thenReturn(UNIT_PRICE);
-            Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(0);
+            Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(0);
 
             Assertions.assertEquals(UNIT_PRICE, pricingRule.getPrimaryUnitPrice());
 
@@ -77,7 +77,7 @@ public class PricingRuleTest {
         void when_unit_price_and_quantity_in_primary_unit_is_set_primary_unit_price_should_be_calculated() {
 
             Mockito.when(pricingRule.getUnitPrice()).thenReturn(UNIT_PRICE);
-            Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
+            Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
 
             Assertions.assertEquals(PRIMARY_UNIT_PRICE, pricingRule.getPrimaryUnitPrice());
         }
@@ -91,7 +91,7 @@ public class PricingRuleTest {
         @DisplayName("When unit price and quantity in primary unit and additional factor is set, primary unit price should be calculated")
         void when_unit_price_and_quantity_in_primary_unit_and_additional_factor_is_set_primary_unit_price_should_be_calculated() {
 
-            Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
+            Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
             Mockito.when(pricingRule.getUnitPrice()).thenReturn(UNIT_PRICE);
             Mockito.when(pricingRule.getAdditionalPricingFactor()).thenReturn(ADDITIONAL_FACTOR);
 
@@ -113,7 +113,7 @@ public class PricingRuleTest {
         @DisplayName("When additional factor is negative or less than one ,InvalidArgumentException should be thrown")
         void when_additional_factor_is_negative_or_less_than_one_InvalidArgumentException_should_be_thrown() {
 
-            Mockito.when(pricingRule.getQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
+            Mockito.when(pricingRule.getUnitQuantityInPrimaryUnit()).thenReturn(QUANTITY_IN_PRIMARY_UNITS);
             Mockito.when(pricingRule.getUnitPrice()).thenReturn(UNIT_PRICE);
             Mockito.when(pricingRule.isAdditionalPricingFactorUsed()).thenReturn(true);
 

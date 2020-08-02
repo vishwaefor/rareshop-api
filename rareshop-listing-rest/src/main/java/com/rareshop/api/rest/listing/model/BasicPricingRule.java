@@ -1,11 +1,9 @@
 package com.rareshop.api.rest.listing.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import rareshop.api.common.core.pricing.PricingRule;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +12,32 @@ public class BasicPricingRule implements PricingRule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private int priorityScore;
-    private String unit;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "unit_id")
+    private BasicUnit unit;
+
     private double unitPrice;
-    private int quantityInPrimaryUnit;
     private boolean additionalPricingFactorUsed;
     private double additionalPricingFactor;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
+    @JsonBackReference
+    private BasicProduct basicProduct;
+
     public BasicPricingRule() {
+    }
+
+    public BasicPricingRule(BasicPricingRuleData basicPricingRule) {
+        this();
+        this.priorityScore = basicPricingRule.getPriorityScore();
+        this.unit = new BasicUnit(basicPricingRule.getUnitId());
+        this.unitPrice = basicPricingRule.getUnitPrice();
+        this.additionalPricingFactorUsed = basicPricingRule.isAdditionalPricingFactorUsed();
+        this.additionalPricingFactor = basicPricingRule.getAdditionalPricingFactor();
     }
 
     @Override
@@ -35,7 +51,7 @@ public class BasicPricingRule implements PricingRule {
     }
 
     @Override
-    public String getUnit() {
+    public BasicUnit getUnit() {
         return unit;
     }
 
@@ -44,10 +60,6 @@ public class BasicPricingRule implements PricingRule {
         return unitPrice;
     }
 
-    @Override
-    public int getQuantityInPrimaryUnit() {
-        return quantityInPrimaryUnit;
-    }
 
     @Override
     public boolean isAdditionalPricingFactorUsed() {
@@ -67,7 +79,7 @@ public class BasicPricingRule implements PricingRule {
         this.priorityScore = priorityScore;
     }
 
-    public void setUnit(String unit) {
+    public void setUnit(BasicUnit unit) {
         this.unit = unit;
     }
 
@@ -75,9 +87,6 @@ public class BasicPricingRule implements PricingRule {
         this.unitPrice = unitPrice;
     }
 
-    public void setQuantityInPrimaryUnit(int quantityInPrimaryUnit) {
-        this.quantityInPrimaryUnit = quantityInPrimaryUnit;
-    }
 
     public void setAdditionalPricingFactorUsed(boolean additionalPricingFactorUsed) {
         this.additionalPricingFactorUsed = additionalPricingFactorUsed;
@@ -85,6 +94,14 @@ public class BasicPricingRule implements PricingRule {
 
     public void setAdditionalPricingFactor(double additionalPricingFactor) {
         this.additionalPricingFactor = additionalPricingFactor;
+    }
+
+    public BasicProduct getBasicProduct() {
+        return basicProduct;
+    }
+
+    public void setBasicProduct(BasicProduct basicProduct) {
+        this.basicProduct = basicProduct;
     }
 
     @Override
@@ -107,9 +124,9 @@ public class BasicPricingRule implements PricingRule {
                 ", priorityScore=" + priorityScore +
                 ", unit='" + unit + '\'' +
                 ", unitPrice=" + unitPrice +
-                ", quantityInPrimaryUnit=" + quantityInPrimaryUnit +
                 ", additionalPricingFactorUsed=" + additionalPricingFactorUsed +
                 ", additionalPricingFactor=" + additionalPricingFactor +
+                ", basicProduct=" + basicProduct +
                 '}';
     }
 }

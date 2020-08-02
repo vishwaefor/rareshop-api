@@ -41,6 +41,11 @@
             <groupId>com.rareshop.api</groupId>
             <artifactId>rareshop-common</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.rareshop.api</groupId>
+            <artifactId>rareshop-price-engine</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

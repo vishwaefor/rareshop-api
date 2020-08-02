@@ -10,13 +10,13 @@ package rareshop.api.common.core.pricing;
  */
 public final class PriceCalculationEntry {
 
-    private String ruleId;
+    private long ruleId;
     private String description;
     private double primaryUnitPrice;
     private int quantityInPrimaryUnit;
 
 
-    public PriceCalculationEntry(String ruleId, String description,
+    public PriceCalculationEntry(long ruleId, String description,
                                  double primaryUnitPrice, int quantityInPrimaryUnit) {
         this.ruleId = ruleId;
         this.description = description;
@@ -24,11 +24,11 @@ public final class PriceCalculationEntry {
         this.quantityInPrimaryUnit = quantityInPrimaryUnit;
     }
 
-    public String getRuleId() {
+    public long getRuleId() {
         return ruleId;
     }
 
-    public void setRuleId(String ruleId) {
+    public void setRuleId(long ruleId) {
         this.ruleId = ruleId;
     }
 
