@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) @Vishwa 2020.
+  -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.rareshop.api</groupId>
+    <artifactId>rareshop-parent</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <modules>
+        <module>rareshop-common</module>
+    </modules>
+
+    <name>Rare Shop API</name>
+    <description>Assignment Project by Vishwa Jayaratne</description>
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <jdk.version>11</jdk.version>
+        <maven.compiler.plugin.version>3.8.0</maven.compiler.plugin.version>
+        <maven.surefire.version>2.22.2</maven.surefire.version>
+        <spring.boot.version>2.3.2.RELEASE</spring.boot.version>
+        <junit-version>5.6.2</junit-version>
+        <mockito-version>3.0.0</mockito-version>
+        <swagger.version>2.9.2</swagger.version>
+        <!--        <swagger.version>3.0.0-SNAPSHOT</swagger.version>-->
+    </properties>
+
+    <profiles>
+        <profile>
+            <id>Common</id>
+            <modules>
+                <module>rareshop-common</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>Price Engine</id>
+            <modules>
+                <module>rareshop-common</module>
+                <module>rareshop-price-engine</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>Listing Rest API</id>
+            <modules>
+                <module>rareshop-common</module>
+                <module>rareshop-listing-rest</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>Searching Rest API</id>
+            <modules>
+                <module>rareshop-common</module>
+                <module>rareshop-searching-rest</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>Pricing Rest API</id>
+            <modules>
+                <module>rareshop-common</module>
+                <module>rareshop-pricing-rest</module>
+            </modules>
+        </profile>
+    </profiles>
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.rareshop.api</groupId>
+                <artifactId>rareshop-parent</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rareshop.api</groupId>
+                <artifactId>rareshop-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rareshop.api</groupId>
+                <artifactId>rareshop-listing-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rareshop.api</groupId>
+                <artifactId>rareshop-searching-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rareshop.api</groupId>
+                <artifactId>rareshop-pricing-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rareshop.api</groupId>
+                <artifactId>rareshop-price-engine</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.rareshop</groupId>
+                <artifactId>rareshop-common</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit-version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito-version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger2</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.springfox</groupId>
+                <artifactId>springfox-swagger-ui</artifactId>
+                <version>${swagger.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring.boot.version}</version>
+                </plugin>
+                <plugin>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven.surefire.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven.compiler.plugin.version}</version>
+                    <configuration>
+                        <source>${jdk.version}</source>
+                        <target>${jdk.version}</target>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>
