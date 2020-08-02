@@ -4,11 +4,11 @@ RareShop API is the used by hypothetical rareshop.com
 
 ### There are three main microservices
 
--   #####Listing API
+-   ##### Listing API
     Used by Admins to publish Product Info (Articles) and Products associated
--   #####Searching API
+-   ##### Searching API
     Used by Publish to view Product Info (Articles) and search Products 
--   #####Pricing API
+-   ##### Pricing API
     Used to calculate final price of the bucket selected by users
 
 ### Pricing Engine
