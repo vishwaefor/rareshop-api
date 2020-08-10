@@ -5,8 +5,9 @@
 package rareshop.api.common.core.discount;
 
 import rareshop.api.common.core.unit.HasUnit;
+import rareshop.api.common.core.unit.Unit;
 
-public interface DiscountRule extends HasUnit {
+public interface DiscountRule<U extends Unit> extends HasUnit<U> {
 
     long getId();
 

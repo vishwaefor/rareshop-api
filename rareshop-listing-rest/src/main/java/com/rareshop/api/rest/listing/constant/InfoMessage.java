@@ -1,6 +1,6 @@
 package com.rareshop.api.rest.listing.constant;
 
-public class InfoMessage {
+public final class InfoMessage {
 
     public static final String PRODUCT_INFO_CREATED = "product info created";
     public static final String PRODUCT_INFO_UPDATED = "product info updated";
@@ -17,4 +17,8 @@ public class InfoMessage {
     public static final String PRICING_RULE_ADDED = "pricing rule added";
     public static final String PRICING_RULE_UPDATED = "pricing rule updated";
     public static final String PRICING_RULE_DELETED = "pricing rule deleted";
+
+    private InfoMessage() {
+        throw new IllegalStateException("Utility class");
+    }
 }

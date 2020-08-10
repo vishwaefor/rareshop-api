@@ -4,7 +4,7 @@
 
 package com.rareshop.api.rest.listing.constant;
 
-public class APIMapping {
+public final class APIMapping {
 
     //ProductInfo
     public static final String PRODUCT_INFO_ID_PARAM = "product-info-id";
@@ -33,5 +33,7 @@ public class APIMapping {
     //Product/PricingRule
     public static final String PRICING_RULE_OF_PRODUCT_MAPPING = PRODUCT_MAPPING + SINGLE_PRODUCT_MAPPING + PRICING_RULE_MAPPING;
 
-
+    private APIMapping() {
+        throw new IllegalStateException("Utility class");
+    }
 }

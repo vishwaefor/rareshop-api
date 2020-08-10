@@ -8,6 +8,7 @@ public class BasicUnitData {
     private int quantityInPrimaryUnits;
 
     public BasicUnitData() {
+        // Do nothing
     }
 
     public String getName() {

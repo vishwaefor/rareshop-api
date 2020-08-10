@@ -55,7 +55,7 @@ public class BasicProductInfoServiceTest {
 
         @Test
         @DisplayName("When added ProductInfo without name, BadRequestException should be thrown")
-        public void addProductInfoWithoutName() throws Exception {
+        void addProductInfoWithoutName() throws Exception {
 
             BasicProductInfoData basicProductInfoData = new BasicProductInfoData();
 
@@ -70,7 +70,7 @@ public class BasicProductInfoServiceTest {
 
         @Test
         @DisplayName("When added ProductInfo without description, BadRequestException should be thrown")
-        public void addProductInfoWithoutDescription() throws Exception {
+        void addProductInfoWithoutDescription() throws Exception {
 
             BasicProductInfoData basicProductInfoData = new BasicProductInfoData();
             basicProductInfoData.setName("Name");
@@ -86,7 +86,7 @@ public class BasicProductInfoServiceTest {
 
         @Test
         @DisplayName("When added ProductInfo with name and description, It should be saved")
-        public void addProductInfoWithNameAndDescription() throws Exception {
+        void addProductInfoWithNameAndDescription() throws Exception {
 
             long savedId = 1L;
             BasicProductInfo savedBasicProductInfo = new BasicProductInfo();

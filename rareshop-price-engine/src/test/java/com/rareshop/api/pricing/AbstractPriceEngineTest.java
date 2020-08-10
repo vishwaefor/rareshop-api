@@ -1,6 +1,5 @@
 package com.rareshop.api.pricing;
 
-import com.rareshop.api.pricing.AbstractPriceEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,7 +27,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
 
-public class AbstractPriceEngineTest {
+class AbstractPriceEngineTest {
 
     @Spy
     private AbstractPriceEngine abstractPriceEngine;
@@ -268,7 +267,7 @@ public class AbstractPriceEngineTest {
     }
 
     private void testForBucketPrice(
-            double expected,Unit unitOne, int quantityOne, Unit unitTwo, int quantityTwo,boolean explained){
+            double expected, Unit unitOne, int quantityOne, Unit unitTwo, int quantityTwo, boolean explained) {
 
         setupBucket(unitOne, quantityOne, unitTwo, quantityTwo);
 
@@ -276,8 +275,8 @@ public class AbstractPriceEngineTest {
 
         double calculatedPrice = bucket.getFinalPrice();
 
-        if(explained){
-            Logger.getAnonymousLogger().log(Level.INFO, "\n\n### Final Calculated Price : {0}\n",calculatedPrice );
+        if (explained) {
+            Logger.getAnonymousLogger().log(Level.INFO, "\n\n### Final Calculated Price : {0}\n", calculatedPrice);
 
             bucket.getItems()
                     .stream().forEach(i -> {
@@ -295,16 +294,16 @@ public class AbstractPriceEngineTest {
 
         Assertions.assertAll(
                 () -> {
-                    testForBucketPrice(11210D,singleUnitOne, 60, cartonUnitTwo, 3,true);
+                    testForBucketPrice(11210D, singleUnitOne, 60, cartonUnitTwo, 3, true);
                 }
                 , () -> {
-                    testForBucketPrice(15300D,cartonUnitOne, 3, singleUnitTwo, 650,true);
+                    testForBucketPrice(15300D, cartonUnitOne, 3, singleUnitTwo, 650, true);
                 }
                 , () -> {
-                    testForBucketPrice(8550,singleUnitOne, 350, singleUnitTwo, 120,true);
+                    testForBucketPrice(8550, singleUnitOne, 350, singleUnitTwo, 120, true);
                 }
                 , () -> {
-                    testForBucketPrice(23200D,cartonUnitOne, 6, cartonUnitTwo, 5,true);
+                    testForBucketPrice(23200D, cartonUnitOne, 6, cartonUnitTwo, 5, true);
                 }
         );
 

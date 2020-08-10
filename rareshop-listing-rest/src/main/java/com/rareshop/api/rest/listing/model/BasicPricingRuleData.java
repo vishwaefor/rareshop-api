@@ -11,6 +11,7 @@ public class BasicPricingRuleData {
     private double additionalPricingFactor;
 
     public BasicPricingRuleData() {
+        // Do nothing
     }
 
     public int getPriorityScore() {

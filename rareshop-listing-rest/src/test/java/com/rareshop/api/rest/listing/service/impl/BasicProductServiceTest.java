@@ -69,7 +69,7 @@ public class BasicProductServiceTest {
 
         @Test
         @DisplayName("When added Product without ProductInfo, BadRequestException should be thrown")
-        public void addProductInfoWithoutName() throws Exception {
+        void addProductInfoWithoutName() throws Exception {
 
             BasicProductData basicProductData = new BasicProductData();
 
@@ -84,7 +84,7 @@ public class BasicProductServiceTest {
 
         @Test
         @DisplayName("When added Product without ProductInfo, BadRequestException should be thrown")
-        public void addProductInfoWithoutProductInfo() throws Exception {
+        void addProductInfoWithoutProductInfo() throws Exception {
 
             BasicProductData basicProductData = new BasicProductData();
             basicProductData.setName("name");
@@ -100,7 +100,7 @@ public class BasicProductServiceTest {
 
         @Test
         @DisplayName("When added Product with not existing ProductInfo, NotFoundException should be thrown")
-        public void addProductInfoWithNonExistingProductInfo() throws Exception {
+        void addProductInfoWithNonExistingProductInfo() throws Exception {
 
             BasicProductData basicProductData = new BasicProductData();
             basicProductData.setProductInfoId(1L);
@@ -120,7 +120,7 @@ public class BasicProductServiceTest {
 
         @Test
         @DisplayName("When added Product with name and ProductInfo, It should be saved")
-        public void addProductWithProductInfo() throws Exception {
+        void addProductWithProductInfo() throws Exception {
 
             long savedId = 1L;
             BasicProduct savedBasicProduct = new BasicProduct();
@@ -367,7 +367,7 @@ public class BasicProductServiceTest {
         @Test
         @DisplayName("When add Pricing Rules to non existing Product," +
                 "NotFoundException should be thrown ")
-        public void addPricingRulesToNonExistingProduct() {
+        void addPricingRulesToNonExistingProduct() {
 
             long nonExistingId = 0L;
             when(repository.findById(anyLong()))
@@ -382,7 +382,7 @@ public class BasicProductServiceTest {
 
             verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-            Assertions.assertEquals(exception.getMessage(), ErrorMessage.PRODUCT_NOT_FOUND);
+            Assertions.assertEquals(ErrorMessage.PRODUCT_NOT_FOUND, exception.getMessage());
 
 
         }
@@ -390,7 +390,7 @@ public class BasicProductServiceTest {
         @Test
         @DisplayName("When retrieve Pricing Rules with bad values," +
                 "BadRequestException should be thrown ")
-        public void addPricingRuleWithBadValues() {
+        void addPricingRuleWithBadValues() {
             when(repository.findById(anyLong()))
                     .thenReturn(Optional.of(new BasicProduct()));
 
@@ -403,7 +403,7 @@ public class BasicProductServiceTest {
 
                         verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-                        Assertions.assertEquals(exception.getMessage(), ErrorMessage.UNIT_NOT_SET);
+                        Assertions.assertEquals(ErrorMessage.UNIT_NOT_SET, exception.getMessage());
                     },
                     () -> {
 
@@ -415,7 +415,7 @@ public class BasicProductServiceTest {
 
                         verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-                        Assertions.assertEquals(exception.getMessage(), ErrorMessage.INVALID_UNIT_PRICE);
+                        Assertions.assertEquals(ErrorMessage.INVALID_UNIT_PRICE, exception.getMessage());
                     },
                     () -> {
 
@@ -428,7 +428,7 @@ public class BasicProductServiceTest {
 
                         verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-                        Assertions.assertEquals(exception.getMessage(), ErrorMessage.INVALID_UNIT_PRICE);
+                        Assertions.assertEquals(ErrorMessage.INVALID_UNIT_PRICE, exception.getMessage());
                     },
                     () -> {
 
@@ -441,7 +441,7 @@ public class BasicProductServiceTest {
 
                         verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-                        Assertions.assertEquals(exception.getMessage(), ErrorMessage.INVALID_UNIT);
+                        Assertions.assertEquals(ErrorMessage.INVALID_UNIT, exception.getMessage());
                     },
                     () -> {
 
@@ -455,7 +455,7 @@ public class BasicProductServiceTest {
 
                         verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-                        Assertions.assertEquals(exception.getMessage(), ErrorMessage.INVALID_ADDITIONAL_FACTOR);
+                        Assertions.assertEquals(ErrorMessage.INVALID_ADDITIONAL_FACTOR, exception.getMessage());
                     },
                     () -> {
 
@@ -470,7 +470,7 @@ public class BasicProductServiceTest {
 
                         verify(pricingRuleRepository, never()).save(any(BasicPricingRule.class));
 
-                        Assertions.assertEquals(exception.getMessage(), ErrorMessage.INVALID_ADDITIONAL_FACTOR);
+                        Assertions.assertEquals(ErrorMessage.INVALID_ADDITIONAL_FACTOR, exception.getMessage());
                     }
             );
         }
@@ -478,7 +478,7 @@ public class BasicProductServiceTest {
         @Test
         @DisplayName("When add Pricing Rules to existing Product with valid values," +
                 "Pricing Rules should be added to Product")
-        public void addPricingRuleWithValidValues() {
+        void addPricingRuleWithValidValues() {
 
             long savedId = 1L;
             long unitId = 10L;
@@ -517,7 +517,7 @@ public class BasicProductServiceTest {
         @Test
         @DisplayName("When retrieve Pricing Rules from non existing Product," +
                 "NotFoundException should be thrown ")
-        public void getAllPricingRulesOfNonExistingProduct() {
+        void getAllPricingRulesOfNonExistingProduct() {
 
             long nonExistingId = 0L;
             when(repository.existsById(anyLong())).thenReturn(false);
@@ -534,7 +534,7 @@ public class BasicProductServiceTest {
         @Test
         @DisplayName("When retrieve Pricing Rules from existing Product," +
                 "Pricing Rules of Product should be retrieved")
-        public void getAllPricingRulesOfExistingProduct() {
+        void getAllPricingRulesOfExistingProduct() {
 
             long existingId = 1L;
 

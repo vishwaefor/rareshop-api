@@ -6,6 +6,7 @@ package rareshop.api.common.core.pricing;
 
 import rareshop.api.common.core.exception.InvalidArgumentException;
 import rareshop.api.common.core.unit.HasUnit;
+import rareshop.api.common.core.unit.Unit;
 
 /**
  * Pricing rule is used to price an item.
@@ -21,7 +22,7 @@ import rareshop.api.common.core.unit.HasUnit;
  * But with an additional factor = 1.5
  * which would make final unit price = 1.5 * $100/20
  */
-public interface PricingRule extends HasUnit {
+public interface PricingRule<U extends Unit> extends HasUnit<U> {
 
     long getId();
 

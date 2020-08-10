@@ -76,7 +76,7 @@ public class ProductControllerTest {
     class AddProduct {
         @Test
         @DisplayName("When [post] to /products with correct body , Product should be added")
-        public void testAddProductWithCorrectBody() throws Exception {
+        void testAddProductWithCorrectBody() throws Exception {
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, 1);
             Acknowledgement acknowledgement =
@@ -103,7 +103,7 @@ public class ProductControllerTest {
 
         @Test
         @DisplayName("When [post] to /products with incorrect body, should get bad request error:400")
-        public void testAddProductWithIncorrectBody() throws Exception {
+        void testAddProductWithIncorrectBody() throws Exception {
 
             String errorMessage = "invalid property";
             Mockito.when(productService.addProduct(any(BasicProductData.class)))
@@ -131,7 +131,7 @@ public class ProductControllerTest {
     class RetrieveProduct {
         @Test
         @DisplayName("When [get] to /product , all Product objects should be retrieved")
-        public void testGetAllProductInfo() throws Exception {
+        void testGetAllProductInfo() throws Exception {
 
             Mockito.when(productService.getAllProducts())
                     .thenReturn(Collections.emptyList());
@@ -148,7 +148,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [get] to /products/{product-id} with existing id, " +
                 "matched Product object should be retrieved")
-        public void testGetSingleProductInfoWithExistingId() throws Exception {
+        void testGetSingleProductInfoWithExistingId() throws Exception {
 
             long existingId = 1L;
             BasicProduct basicProduct = new BasicProduct();
@@ -174,7 +174,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [get] to /products/{product-id} with non-existing id, " +
                 "should get not found error:404")
-        public void testGetSingleProductInfoWithNonExistingId() throws Exception {
+        void testGetSingleProductInfoWithNonExistingId() throws Exception {
 
             String errorMessage = "item not found";
             Mockito.when(productService.getProduct(anyLong()))
@@ -203,7 +203,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [delete] to /products/{product-id} with non existing id," +
                 " should get not found error:404")
-        public void testDeleteProductWithNonExistingId() throws Exception {
+        void testDeleteProductWithNonExistingId() throws Exception {
             String errorMessage = "item not found";
             Mockito.when(productService.deleteProduct(anyLong()))
                     .thenThrow(new NotFoundException(errorMessage));
@@ -226,7 +226,7 @@ public class ProductControllerTest {
 
         @Test
         @DisplayName("When [delete] to /products/{product-id} with existing id, Product should be deleted")
-        public void testDeleteProductWithExistingId() throws Exception {
+        void testDeleteProductWithExistingId() throws Exception {
             long id = 1L;
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, id);
@@ -257,7 +257,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [patch] to /products/{product-id}?published=true with non existing id, " +
                 "should get not found error:404")
-        public void testPublishProductWithNonExistingId() throws Exception {
+        void testPublishProductWithNonExistingId() throws Exception {
 
             boolean published = true;
             String errorMessage = "item not found";
@@ -283,7 +283,7 @@ public class ProductControllerTest {
 
         @Test
         @DisplayName("When [patch] to /products/{product-id}?published=true , Product should be published")
-        public void testPublishProductWithExistingId() throws Exception {
+        void testPublishProductWithExistingId() throws Exception {
             long id = 1L;
             boolean published = true;
             Map<String, Object> payload = new HashMap<>();
@@ -318,7 +318,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [post] to /products/{product-id}/pricing-rules to non existing Product ," +
                 " should get not found error:404")
-        public void testAddPricingRuleToNonExistingProduct() throws Exception {
+        void testAddPricingRuleToNonExistingProduct() throws Exception {
             long nonExistingProductId = 0L;
             String errorMessage = "product not found";
             Mockito.when(productService.addPricingRule(anyLong(), any(BasicPricingRuleData.class)))
@@ -344,7 +344,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [post] to /products/{product-id}/pricing-rules with correct body," +
                 " Producing Rule should be added")
-        public void testAddPricingRuleWithCorrectBody() throws Exception {
+        void testAddPricingRuleWithCorrectBody() throws Exception {
             long existingProductId = 1L;
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, existingProductId);
@@ -374,7 +374,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [post] to /products/{product-id}/pricing-rules with incorrect body," +
                 " should get bad request error:400")
-        public void testAddPricingRuleWithIncorrectBody() throws Exception {
+        void testAddPricingRuleWithIncorrectBody() throws Exception {
             long existingProductId = 1L;
             String errorMessage = "invalid property";
             Mockito.when(productService.addPricingRule(anyLong(), any(BasicPricingRuleData.class)))
@@ -404,7 +404,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [get] to /product/{product-id}/pricing-rules with existing product id," +
                 " all PricingRule objects of Product should be retrieved")
-        public void testGetAllPricingRulesOfExistingProduct() throws Exception {
+        void testGetAllPricingRulesOfExistingProduct() throws Exception {
 
             long existingProductId = 1L;
             Mockito.when(productService.getAllPricingRules(anyLong()))
@@ -423,7 +423,7 @@ public class ProductControllerTest {
         @Test
         @DisplayName("When [get] to /product/{product-id}/pricing-rules with non existing product id," +
                 " should get not found error:404")
-        public void testGetAllPricingRulesOfNonExistingProduct() throws Exception {
+        void testGetAllPricingRulesOfNonExistingProduct() throws Exception {
 
             long nonExistingId = 0L;
             String errorMessage = "product not found";

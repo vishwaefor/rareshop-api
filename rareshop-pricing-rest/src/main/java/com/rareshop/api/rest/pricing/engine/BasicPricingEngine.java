@@ -1,20 +1,31 @@
 package com.rareshop.api.rest.pricing.engine;
 
 import com.rareshop.api.pricing.AbstractPriceEngine;
+import com.rareshop.api.rest.pricing.model.*;
+import org.springframework.stereotype.Component;
 import rareshop.api.common.core.discount.DiscountSchema;
 import rareshop.api.common.core.pricing.PricingSchema;
 import rareshop.api.common.core.product.Product;
 
-public class BasicPricingEngine extends AbstractPriceEngine {
+@Component
+public class BasicPricingEngine
+        extends AbstractPriceEngine<
+        BasicProduct,
+        BasicUnit,
+        BasicBucketItem,
+        BasicBucket,
+        BasicPricingRule,
+        BasicDiscountRule,
+        BasicPricingSchema,
+        BasicDiscountSchema> {
+
     @Override
-    protected PricingSchema searchPricingSchema(Product product) {
-        //TODO Connect with database to find price schema
+    protected BasicPricingSchema searchPricingSchema(BasicProduct product) {
         return null;
     }
 
     @Override
-    protected DiscountSchema searchDiscountSchema(Product product) {
-        //TODO Connect with database to find price schema
+    protected BasicDiscountSchema searchDiscountSchema(BasicProduct product) {
         return null;
     }
 }

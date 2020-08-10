@@ -8,7 +8,7 @@ import rareshop.api.common.core.unit.Unit;
 import javax.persistence.*;
 
 @Entity
-public class BasicDiscountRule implements DiscountRule {
+public class BasicDiscountRule implements DiscountRule<BasicUnit> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -23,6 +23,7 @@ public class BasicDiscountRule implements DiscountRule {
     private BasicProduct basicProduct;
 
     public BasicDiscountRule() {
+        // Do nothing
     }
 
     public long getId() {
@@ -62,7 +63,7 @@ public class BasicDiscountRule implements DiscountRule {
     }
 
     @Override
-    public Unit getUnit() {
-        return null;
+    public BasicUnit getUnit() {
+        return unit;
     }
 }

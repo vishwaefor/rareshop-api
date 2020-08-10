@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  * Quantity of the product is kept
  * Only one BucketItem per product can be exist
  */
-public interface BucketItem<P extends Product, U extends Unit> extends HasUnit {
+public interface BucketItem<P extends Product, U extends Unit> extends HasUnit<U> {
 
     default long getId() {
         return getProduct().getId();

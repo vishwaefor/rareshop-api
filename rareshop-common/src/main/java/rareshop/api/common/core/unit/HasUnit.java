@@ -2,9 +2,9 @@ package rareshop.api.common.core.unit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public interface HasUnit {
+public interface HasUnit<U extends Unit> {
 
-    Unit getUnit();
+    U getUnit();
 
     @JsonIgnore
     default int getUnitQuantityInPrimaryUnit() {

@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class BasicPricingRule implements PricingRule {
+public class BasicPricingRule implements PricingRule<BasicUnit> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

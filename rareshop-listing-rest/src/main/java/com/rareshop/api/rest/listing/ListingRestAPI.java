@@ -34,7 +34,7 @@ public class ListingRestAPI {
      */
     //@Bean
     public CommandLineRunner demo(BasicProductInfoRepository repository) {
-        return (args) -> {
+        return args -> {
             BasicProductInfo penguinEar = new BasicProductInfo();
             penguinEar.setName("Penguin Ear");
             penguinEar.setDescription("Penguin Ear is a rare asset. " +

@@ -16,6 +16,7 @@ import rareshop.api.common.core.exception.NotFoundException;
 import rareshop.api.common.core.model.Acknowledgement;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -182,6 +183,6 @@ public class BasicProductService implements ProductService {
 
     @Override
     public List<BasicDiscountRule> getAllDiscountRules(long productId) {
-        return null;
+        return Collections.emptyList();
     }
 }

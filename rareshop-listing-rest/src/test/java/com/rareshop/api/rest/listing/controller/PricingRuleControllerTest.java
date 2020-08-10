@@ -64,7 +64,7 @@ public class PricingRuleControllerTest {
         @Test
         @DisplayName("When [put] to /pricing-rules/{pricing-rule-id} with non existing id, " +
                 "should get not found error:404")
-        public void testUpdatePricingRuleWithNonExistingId() throws Exception {
+        void testUpdatePricingRuleWithNonExistingId() throws Exception {
 
             long nonExistingId = 0L;
             String errorMessage = "item not found";
@@ -91,7 +91,7 @@ public class PricingRuleControllerTest {
 
         @Test
         @DisplayName("When [put] to /pricing-rules/{pricing-rule-id} with incorrect body, should get bad request error:400")
-        public void testUpdatePricingRuleWithIncorrectBody() throws Exception {
+        void testUpdatePricingRuleWithIncorrectBody() throws Exception {
 
             String errorMessage = "invalid property";
             Mockito.when(pricingRuleService.updatePricingRule(any(BasicPricingRule.class)))
@@ -114,7 +114,7 @@ public class PricingRuleControllerTest {
 
         @Test
         @DisplayName("When [put] to /pricing-rules/{pricing-rule-id} with correct body, Pricing Rule should be updated ")
-        public void testUpdatePricingRuleWithCorrectBody() throws Exception {
+        void testUpdatePricingRuleWithCorrectBody() throws Exception {
             long id = 1L;
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, id);
@@ -147,7 +147,7 @@ public class PricingRuleControllerTest {
         @Test
         @DisplayName("When [delete] to /pricing-rules/{pricing-rule-id} with non existing id," +
                 " should get not found error:404")
-        public void testDeletePricingRuleWithNonExistingId() throws Exception {
+        void testDeletePricingRuleWithNonExistingId() throws Exception {
 
             long nonExistingId = 0L;
             String errorMessage = "item not found";
@@ -170,7 +170,7 @@ public class PricingRuleControllerTest {
         @Test
         @DisplayName("When [delete] to /pricing-rules/{pricing-rule-id} with existing id, " +
                 "PricingRule should be deleted")
-        public void testDeleteProductWithExistingId() throws Exception {
+        void testDeleteProductWithExistingId() throws Exception {
             long existingId = 1L;
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, existingId);

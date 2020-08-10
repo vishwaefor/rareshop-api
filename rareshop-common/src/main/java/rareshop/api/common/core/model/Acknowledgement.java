@@ -4,7 +4,7 @@ import rareshop.api.common.core.constant.Params;
 
 import java.util.HashMap;
 
-public class Acknowledgement extends HashMap {
+public class Acknowledgement extends HashMap<String,Object> {
 
     public Acknowledgement() {
 

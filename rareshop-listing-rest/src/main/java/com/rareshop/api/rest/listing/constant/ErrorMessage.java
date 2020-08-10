@@ -1,6 +1,6 @@
 package com.rareshop.api.rest.listing.constant;
 
-public class ErrorMessage {
+public final class ErrorMessage {
     public static final String NAME_NOT_SET = "name not set";
     public static final String DESCRIPTION_IS_BLANK = "description not set";
     public static final String ID_NOT_SET = "id not set";
@@ -18,5 +18,7 @@ public class ErrorMessage {
     public static final String INVALID_UNIT = "invalid unit";
     public static final String INVALID_ADDITIONAL_FACTOR = "invalid additional factor";
 
-
+    private ErrorMessage() {
+        throw new IllegalStateException("Utility class");
+    }
 }

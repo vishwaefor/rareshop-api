@@ -58,7 +58,7 @@ public abstract class AbstractPriceEngine<
                 .stream().filter(Objects::nonNull).collect(Collectors.toList());
 
         if (pricingRules.isEmpty()) {
-            PricingSchema pricingSchema = searchPricingSchema(product);
+            PricingSchema<P, R> pricingSchema = searchPricingSchema(product);
             if (pricingSchema != null) {
                 pricingRules.addAll(
                         Optional.ofNullable(pricingSchema.getApplicableRule(product))
@@ -78,7 +78,7 @@ public abstract class AbstractPriceEngine<
                 .stream().filter(Objects::nonNull).collect(Collectors.toList());
 
         if (discountRules.isEmpty()) {
-            DiscountSchema discountSchema = searchDiscountSchema(product);
+            DiscountSchema<P, S> discountSchema = searchDiscountSchema(product);
             if (discountSchema != null) {
                 discountRules.addAll(
                         Optional.ofNullable(discountSchema.getApplicableRule(product))
@@ -89,7 +89,7 @@ public abstract class AbstractPriceEngine<
         return discountRules;
     }
 
-    protected void applyBucketPrice(final B bucket) {
+    public void applyBucketPrice(final B bucket) {
 
         List<CompletableFuture<Void>> futures = Optional.ofNullable(
                 Optional.ofNullable(bucket)
@@ -126,17 +126,15 @@ public abstract class AbstractPriceEngine<
         Collections.sort(pricingRules,
                 Comparator.comparingInt(PricingRule::getPriorityScore));
 
-//        Collections.reverse(pricingRules);
-
-        Stack<R> entriesStack = new Stack<>();
+        Deque<R> entriesStack = new ArrayDeque<>();
 
         pricingRules.stream().forEachOrdered(entriesStack::push);
 
         int notPricedQuantity = item.getPurchasedQuantityInPrimaryUnit();
 
-        while (notPricedQuantity > 0 && !entriesStack.empty()) {
+        while (notPricedQuantity > 0 && entriesStack.peek() != null) {
 
-            PricingRule rule = entriesStack.pop();
+            PricingRule<U> rule = entriesStack.pop();
 
             if (rule.getUnitQuantityInPrimaryUnit() <= notPricedQuantity) {
 
@@ -161,17 +159,15 @@ public abstract class AbstractPriceEngine<
         Collections.sort(discountRules,
                 Comparator.comparingInt(DiscountRule::getPriorityScore));
 
-        //        Collections.reverse(discountRules);
-
-        Stack<S> entriesStack = new Stack<>();
+        Deque<S> entriesStack = new ArrayDeque<>();
 
         discountRules.stream().forEachOrdered(entriesStack::push);
 
         boolean discountRuleApplied = false;
 
-        while (!discountRuleApplied && !entriesStack.empty()) {
+        while (!discountRuleApplied && entriesStack.peek() != null) {
 
-            DiscountRule rule = entriesStack.pop();
+            DiscountRule<U> rule = entriesStack.pop();
 
             AtomicReference<Double> subjectedAmount = new AtomicReference<>(0D);
 

@@ -9,6 +9,7 @@ public class BasicProductInfoData {
     private String imageURI;
 
     public BasicProductInfoData() {
+        // Do nothing
     }
 
     public String getName() {

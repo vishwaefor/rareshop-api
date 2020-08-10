@@ -74,7 +74,7 @@ public class ProductInfoControllerTest {
     class AddProductInfo {
         @Test
         @DisplayName("When [post] to /product-info with correct body , Product Info should be added")
-        public void testAddProductInfoWithCorrectBody() throws Exception {
+        void testAddProductInfoWithCorrectBody() throws Exception {
             Map<String, Object> payload = new HashMap<>();
             payload.put("id", 1);
             Acknowledgement acknowledgement =
@@ -101,7 +101,7 @@ public class ProductInfoControllerTest {
 
         @Test
         @DisplayName("When [post] to /product-info with incorrect body, should get bad request error:400")
-        public void testAddProductInfoWithIncorrectBody() throws Exception {
+        void testAddProductInfoWithIncorrectBody() throws Exception {
 
             String errorMessage = "invalid property";
             Mockito.when(productInfoService.addProductInfo(any(BasicProductInfoData.class)))
@@ -129,7 +129,7 @@ public class ProductInfoControllerTest {
     class RetrieveProductInfo {
         @Test
         @DisplayName("When [get] to /product-info , all Product Info objects should be retrieved")
-        public void testGetAllProductInfo() throws Exception {
+        void testGetAllProductInfo() throws Exception {
 
             Mockito.when(productInfoService.getAllProductInfo())
                     .thenReturn(Collections.emptyList());
@@ -146,7 +146,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [get] to /product-info/{product-info-id} with existing id, " +
                 "matched Product Info object should be retrieved")
-        public void testGetSingleProductInfoWithExistingId() throws Exception {
+        void testGetSingleProductInfoWithExistingId() throws Exception {
 
             long existingId = 1L;
             BasicProductInfo basicProductInfo = new BasicProductInfo();
@@ -173,7 +173,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [get] to /product-info/{product-info-id} with non-existing id, " +
                 "should get not found error:404")
-        public void testGetSingleProductInfoWithNonExistingId() throws Exception {
+        void testGetSingleProductInfoWithNonExistingId() throws Exception {
 
             String errorMessage = "item not found";
             Mockito.when(productInfoService.getProductInfo(anyLong()))
@@ -202,7 +202,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [put] to /product-info/{product-info-id} with non existing id, " +
                 "should get not found error:404")
-        public void testUpdateProductInfoWithNonExistingId() throws Exception {
+        void testUpdateProductInfoWithNonExistingId() throws Exception {
 
 
             String errorMessage = "item not found";
@@ -231,7 +231,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [put] to /product-info/{product-info-id} with incorrect body, " +
                 "should get bad request error:400")
-        public void testUpdateProductInfoWithIncorrectBody() throws Exception {
+        void testUpdateProductInfoWithIncorrectBody() throws Exception {
 
             long id = 1L;
             String errorMessage = "invalid property";
@@ -259,7 +259,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [put] to /product-info/{product-info-id} with correct body, " +
                 "Product Info should be updated ")
-        public void testUpdateProductInfoWithCorrectBody() throws Exception {
+        void testUpdateProductInfoWithCorrectBody() throws Exception {
             long id = 1L;
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, id);
@@ -295,7 +295,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [delete] to /product-info/{product-info-id} with non existing id, s" +
                 "hould get not found error:404")
-        public void testDeleteProductInfoWithNonExistingId() throws Exception {
+        void testDeleteProductInfoWithNonExistingId() throws Exception {
             String errorMessage = "item not found";
             Mockito.when(productInfoService.deleteProductInfo(anyLong()))
                     .thenThrow(new NotFoundException(errorMessage));
@@ -319,7 +319,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [delete] to /product-info/{product-info-id} with existing id, " +
                 "Product Info should be deleted")
-        public void testDeleteProductInfoWithExistingId() throws Exception {
+        void testDeleteProductInfoWithExistingId() throws Exception {
             long id = 1L;
             Map<String, Object> payload = new HashMap<>();
             payload.put(Params.ID, id);
@@ -351,7 +351,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [patch] to /product-info/{product-info-id}?published=true with non existing id, " +
                 "should get not found error:404")
-        public void testPublishProductInfoWithNonExistingId() throws Exception {
+        void testPublishProductInfoWithNonExistingId() throws Exception {
 
             boolean published = true;
             String errorMessage = "item not found";
@@ -378,7 +378,7 @@ public class ProductInfoControllerTest {
         @Test
         @DisplayName("When [patch] to /product-info/{product-info-id}?published=true, " +
                 "Product Info should be published")
-        public void testPublishProductWithExistingId() throws Exception {
+        void testPublishProductWithExistingId() throws Exception {
             long id = 1L;
             boolean published = true;
             Map<String, Object> payload = new HashMap<>();
