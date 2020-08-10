@@ -1,5 +1,6 @@
-package com;
+package com.rareshop.api.pricing;
 
+import com.rareshop.api.pricing.AbstractPriceEngine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
