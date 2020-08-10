@@ -2,9 +2,7 @@ package com.rareshop.api.rest.pricing.model;
 
 import rareshop.api.common.core.bucket.Bucket;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class BasicBucket implements Bucket<BasicBucketItem> {

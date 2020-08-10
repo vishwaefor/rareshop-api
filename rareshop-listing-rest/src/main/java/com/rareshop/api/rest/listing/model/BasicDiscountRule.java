@@ -3,7 +3,6 @@ package com.rareshop.api.rest.listing.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import rareshop.api.common.core.discount.AppliedFor;
 import rareshop.api.common.core.discount.DiscountRule;
-import rareshop.api.common.core.unit.Unit;
 
 import javax.persistence.*;
 

@@ -1,6 +1,5 @@
 package com.rareshop.api.rest.pricing.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rareshop.api.rest.pricing.constant.APIMapping;
 import com.rareshop.api.rest.pricing.service.PricingService;
 import org.springframework.beans.factory.annotation.Autowired;

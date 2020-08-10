@@ -3,9 +3,6 @@ package com.rareshop.api.rest.pricing.engine;
 import com.rareshop.api.pricing.AbstractPriceEngine;
 import com.rareshop.api.rest.pricing.model.*;
 import org.springframework.stereotype.Component;
-import rareshop.api.common.core.discount.DiscountSchema;
-import rareshop.api.common.core.pricing.PricingSchema;
-import rareshop.api.common.core.product.Product;
 
 @Component
 public class BasicPricingEngine
