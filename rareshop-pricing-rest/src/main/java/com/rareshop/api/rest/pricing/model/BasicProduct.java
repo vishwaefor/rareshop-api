@@ -4,6 +4,7 @@ import rareshop.api.common.core.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BasicProduct implements Product<BasicProductInfo,BasicUnit,BasicPricingRule,BasicDiscountRule> {
 
@@ -89,5 +90,37 @@ public class BasicProduct implements Product<BasicProductInfo,BasicUnit,BasicPri
 
     public void setDiscountRules(List<BasicDiscountRule> discountRules) {
         this.discountRules = discountRules;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicProduct that = (BasicProduct) o;
+        return id == that.id &&
+                published == that.published &&
+                Objects.equals(productInfo, that.productInfo) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(units, that.units) &&
+                Objects.equals(pricingRules, that.pricingRules) &&
+                Objects.equals(discountRules, that.discountRules);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, productInfo, name, published, units, pricingRules, discountRules);
+    }
+
+    @Override
+    public String toString() {
+        return "BasicProduct{" +
+                "id=" + id +
+                ", productInfo=" + productInfo +
+                ", name='" + name + '\'' +
+                ", published=" + published +
+                ", units=" + units +
+                ", pricingRules=" + pricingRules +
+                ", discountRules=" + discountRules +
+                '}';
     }
 }

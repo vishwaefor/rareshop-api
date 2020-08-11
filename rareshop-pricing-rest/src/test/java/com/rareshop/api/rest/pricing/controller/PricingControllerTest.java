@@ -20,6 +20,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import rareshop.api.common.core.model.RareResponse;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -92,7 +93,7 @@ class PricingControllerTest {
         Assertions.assertEquals(bucketData,bucketDataCaptor.getValue());
 
         resultActions.andExpect(content().string(
-                objectMapper.writeValueAsString(pricedBucketData)));
+                objectMapper.writeValueAsString(new RareResponse(pricedBucketData))));
     }
 
 }

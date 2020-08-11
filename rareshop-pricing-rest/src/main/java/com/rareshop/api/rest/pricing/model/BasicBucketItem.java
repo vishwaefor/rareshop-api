@@ -6,6 +6,7 @@ import rareshop.api.common.core.pricing.PriceCalculationEntry;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BasicBucketItem implements BucketItem<BasicProduct,BasicUnit> {
 
@@ -92,16 +93,63 @@ public class BasicBucketItem implements BucketItem<BasicProduct,BasicUnit> {
 
     @Override
     public double getGrossPrice() {
-        return grossPrice<0? BucketItem.super.getGrossPrice():grossPrice;
+        if (grossPrice < 0) {
+            grossPrice =  BucketItem.super.getGrossPrice();
+        }
+        return grossPrice;
     }
 
     @Override
     public double getDiscountedAMount() {
-        return discountAmount<0? BucketItem.super.getDiscountedAMount():discountAmount;
+        if (discountAmount < 0) {
+            discountAmount =  BucketItem.super.getDiscountedAMount();
+        }
+        return discountAmount;
     }
 
     @Override
     public double getFinalPrice() {
-        return netPrice<0?BucketItem.super.getFinalPrice():netPrice;
+        if (netPrice < 0){
+            netPrice =  BucketItem.super.getFinalPrice();
+        }
+        return netPrice;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicBucketItem that = (BasicBucketItem) o;
+        return quantity == that.quantity &&
+                pricingRulesApplied == that.pricingRulesApplied &&
+                discountRulesApplied == that.discountRulesApplied &&
+                Double.compare(that.grossPrice, grossPrice) == 0 &&
+                Double.compare(that.discountAmount, discountAmount) == 0 &&
+                Double.compare(that.netPrice, netPrice) == 0 &&
+                Objects.equals(product, that.product) &&
+                Objects.equals(unit, that.unit) &&
+                Objects.equals(priceCalculationEntries, that.priceCalculationEntries) &&
+                Objects.equals(discountCalculationEntries, that.discountCalculationEntries);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, quantity, unit, pricingRulesApplied, discountRulesApplied, priceCalculationEntries, discountCalculationEntries, grossPrice, discountAmount, netPrice);
+    }
+
+    @Override
+    public String toString() {
+        return "BasicBucketItem{" +
+                "product=" + product +
+                ", quantity=" + quantity +
+                ", unit=" + unit +
+                ", pricingRulesApplied=" + pricingRulesApplied +
+                ", discountRulesApplied=" + discountRulesApplied +
+                ", priceCalculationEntries=" + priceCalculationEntries +
+                ", discountCalculationEntries=" + discountCalculationEntries +
+                ", grossPrice=" + grossPrice +
+                ", discountAmount=" + discountAmount +
+                ", netPrice=" + netPrice +
+                '}';
     }
 }

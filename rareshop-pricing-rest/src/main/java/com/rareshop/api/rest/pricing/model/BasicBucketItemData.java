@@ -1,5 +1,7 @@
 package com.rareshop.api.rest.pricing.model;
 
+import java.util.Objects;
+
 public class BasicBucketItemData {
     private long productId;
     private long unitId;
@@ -36,5 +38,29 @@ public class BasicBucketItemData {
 
     public void setPurchasedQuantity(int purchasedQuantity) {
         this.purchasedQuantity = purchasedQuantity;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicBucketItemData that = (BasicBucketItemData) o;
+        return productId == that.productId &&
+                unitId == that.unitId &&
+                purchasedQuantity == that.purchasedQuantity;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, unitId, purchasedQuantity);
+    }
+
+    @Override
+    public String toString() {
+        return "BasicBucketItemData{" +
+                "productId=" + productId +
+                ", unitId=" + unitId +
+                ", purchasedQuantity=" + purchasedQuantity +
+                '}';
     }
 }

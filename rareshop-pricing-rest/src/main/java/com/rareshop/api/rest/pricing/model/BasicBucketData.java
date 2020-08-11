@@ -2,6 +2,7 @@ package com.rareshop.api.rest.pricing.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class BasicBucketData {
 
@@ -36,5 +37,27 @@ public class BasicBucketData {
 
     public void setBucketId(long bucketId) {
         this.bucketId = bucketId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BasicBucketData that = (BasicBucketData) o;
+        return bucketId == that.bucketId &&
+                Objects.equals(items, that.items);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bucketId, items);
+    }
+
+    @Override
+    public String toString() {
+        return "BasicBucketData{" +
+                "bucketId=" + bucketId +
+                ", items=" + items +
+                '}';
     }
 }
